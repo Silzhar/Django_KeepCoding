@@ -8,12 +8,13 @@
     <h1>Bienvenido a Frikr</h1>
     <p>Version de Flikr</p>
 
-    {%if photos_list |leng > 0 %}
+    {%if photos_list|length > 0 %}
         <h2>últimas fotos publicadas</h2>
         {% for photo in photos_list %}
             <img src="{{ photo.url }}" alt="{{ photo.name }}" height="150">
         {% endfor %}
-    {% ¡Publica la primera foto! %}
+    {% else %}
+         ¡Publica la primera foto! 
     {% endif %}
 
 </body>
