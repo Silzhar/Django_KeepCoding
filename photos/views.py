@@ -10,11 +10,31 @@ def home(request):
     }
     return render(request, 'photos/home.html', context)
 
-
-
+def detail(request, pk):
     '''
-    html = '<ul>'
-    for photo in photos:
-        html += '<li>' + photo.name + '</li>'
-    html += '</ul>'
-    return HttpResponse(html)   '''
+    Carga la página de detalle de una foto
+    param request: HttpRequest
+    param pk: id de la foto
+    return: HttpResponse
+    '''
+    '''
+    # sintaxtis de recuperación de un objeto
+    # lo mismo que abajo pero controlando con Try / except
+    try:  
+        photo = Photo.objects.get(pk=pk)
+    except Photo.DoesNotExist:
+        photo = None
+    except Photo.MultipleObjects:
+        photo = None
+    '''
+
+    possible_photos = Photo.objects.filter(pk=pk) # pk = primary key
+    photo = possible_photos[0] if len(possible_photos) >= 1 else None
+    if photo is not None:
+        # cargar la plantilla de detalle
+        context = {
+            'photo': photo
+        }
+        return render(request, 'photos/detail.html', context)
+    else:
+        return HttpResponseNotFound() # 404 not found
