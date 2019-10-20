@@ -11,7 +11,7 @@
     {%if photos_list|length > 0 %}
         <h2>últimas fotos publicadas</h2>
         {% for photo in photos_list %}
-            <img src="{{ photo.url }}" alt="{{ photo.name }}" height="150">
+            <img src="{{ photo.url }}" alt="{{ photo.name }}" height="220">
         {% endfor %}
     {% else %}
          ¡Publica la primera foto! 
