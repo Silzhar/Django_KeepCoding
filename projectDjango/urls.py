@@ -20,5 +20,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^$', 'photos.views.home')
+    url(r'^$', 'photos.views.home'), 
+    url(r'^photos/(?P<pk>[0-9]+)$', 'photos.views.detail') # (?P<pk>[0-9]+) = cualquier numero de 0 a 9 repetido una o mas veces
 ]
