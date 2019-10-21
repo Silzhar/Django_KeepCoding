@@ -37,4 +37,4 @@ def detail(request, pk):
         }
         return render(request, 'photos/detail.html', context)
     else:
-        return HttpResponseNotFound() # 404 not found
+        return HttpResponseNotFound('No existe la foto') # 404 not found
