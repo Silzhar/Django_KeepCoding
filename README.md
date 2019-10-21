@@ -22,3 +22,4 @@
 - $ python manage.py startapp <name>
 (add to the tuple INSTALLED_APPS in settings.py)
 
+Example :  $ python manage.py startapp users
