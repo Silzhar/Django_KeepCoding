@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Bienvenido a la aplicación</title>
-</head>
-<body>
+{% extends 'base.html' %}  <!-- Trae el contenido de base.html salvo los huecos -->
+
+{% block section %}
+
     <h1>Bienvenido a Frikr</h1>
     <p>Version de Flikr</p>
 
@@ -19,5 +16,5 @@
          ¡Publica la primera foto! 
     {% endif %}
 
-</body>
-</html>
+{% endblock %}
+
