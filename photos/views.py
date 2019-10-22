@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from photos.models import Photo, PUBLIC
 
@@ -29,7 +29,7 @@ def detail(request, pk):
     '''
 
     possible_photos = Photo.objects.filter(pk=pk) # pk = primary key
-    photo = possible_photos[0] if len(possible_photos) >= 1 else None
+    photo = possible_photos[0] if len(possible_photos) > 0 else None
     if photo is not None:
         # cargar la plantilla de detalle
         context = {
