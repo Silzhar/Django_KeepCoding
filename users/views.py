@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 
 def login(request):
-    pass
+    return'hola'
 
 
 def logout(request):
-    pass
+    return'hola'
