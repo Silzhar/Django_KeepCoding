@@ -4,13 +4,17 @@
 
 {% block section %}
 
-<form method=POST>
+{% for error in errors %}
+    <p>{{ error }}</p>
+{% endfor %}
+
+<form method='POST'>
     {% csrf_token %}
     <div>
         <input type="text" name="usr" placeholder="Nombre de usuario">
     </div>
     <div>
-        <input type="text" name="pwd" placeholder="Password">
+        <input type="text" name="pwd" placeholder="Password" />
     </div>
     <div>
         <button>Entrar</button>
