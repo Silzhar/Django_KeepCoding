@@ -4,7 +4,8 @@
 
 {% block section %}
 
-<form>
+<form method=POST>
+    {% csrf_token %}
     <div>
         <input type="text" name="usr" placeholder="Nombre de usuario">
     </div>
