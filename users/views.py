@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.contrib.auth import logout as django_logout, authenticate, login as django_login
+from users.forms import LoginForm
 
 def login(request):
+    form = LoginForm()
     error_messages = []
     if request.method == 'POST':
-        username = request.POST['usr']
-        password = request.POST['pwd']
+        username = request.POST.get('usr') # .get evita comflicto con contraseña errónea
+        password = request.POST.get('pwd')
         user = authenticate(username=username, password=password) # busca encriptado de usuario y contraseña
         if user is None:
             error_messages.append('Nombre de usuario o contraseña incorrectos')
@@ -18,7 +20,8 @@ def login(request):
                 error_messages.append('El usuario no está activo')
                 
     context = {
-        'errors': error_messages
+        'errors': error_messages,
+        'login_form': form
     }
     return render(request, 'users/login.html', context)
 
