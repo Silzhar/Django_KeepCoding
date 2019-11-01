@@ -1,0 +1,14 @@
+{% extends 'base.html' %}  <!-- Trae el contenido de base.html salvo los huecos -->
+
+{% block title %} Crear una foto {% endblock %}
+
+{% block section %}
+
+    <h1>Crear una foto</h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+        <button>Crear foto</button>
+    </div>
+
+{% endblock %}
