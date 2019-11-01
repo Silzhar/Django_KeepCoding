@@ -17,11 +17,13 @@ from django.conf.urls import url
 from django.contrib import admin
 
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # Photos URLs
     url(r'^$', 'photos.views.home', name='photos_home'), 
     url(r'^photos/(?P<pk>[0-9]+)$', 'photos.views.detail', name='photo_detail'), # (?P<pk>[0-9]+) = cualquier numero de 0 a 9 repetido una o mas veces
+    url(r'^photos/new$', 'photos.views.create', name='create_photo'),
 
     # Users URLs
     url(r'^login$', 'users.views.login', name='users_login'),

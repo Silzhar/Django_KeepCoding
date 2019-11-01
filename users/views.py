@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout as django_logout, authenticate, login as django_login
 from users.forms import LoginForm
 
@@ -16,7 +16,7 @@ def login(request):
             else:
                 if user.is_active:
                     django_login(request, user)
-                    return ('photos_home')
+                    return redirect('photos_home')
                 else:
                     error_messages.append('El usuario no está activo')
     else:
@@ -32,4 +32,4 @@ def login(request):
 def logout(request):
     if request.user.is_authenticaded():
         django_logout(request)
-    return ('photos_home')
+    return redirect('photos_home')

@@ -38,3 +38,21 @@ def detail(request, pk):
         return render(request, 'photos/detail.html', context)
     else:
         return HttpResponseNotFound('No existe la foto') # 404 not found
+
+def create(request):
+    '''
+    Formulario para creacion de de foto (petición POST)
+    param request: HttpRequest
+    return: HttpResponse
+    '''
+    if request.method == 'GET':
+        form = PhotoForm()
+    else:
+        form = PhotoForm(request.POST)
+        if form.is_valid():
+            new_photo = form.save() # Guarda el objeto y lo devuelve
+
+    context = {
+        'form': form 
+    }
+    return render(request, 'photos/new_photo.html', context)
