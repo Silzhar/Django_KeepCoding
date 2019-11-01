@@ -10,7 +10,9 @@
 
 <form method='POST'>
     {% csrf_token %}
-    {{ login_form.as_p }}
+    <table>
+        {{ login_form.as_table }}
+    </table>    
     <!-- old method
     <div>
         <input type="text" name="usr" placeholder="Nombre de usuario">
