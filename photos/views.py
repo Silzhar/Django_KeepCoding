@@ -2,6 +2,9 @@
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 from photos.models import Photo, PUBLIC
+from photos.forms import PhotoForm
+from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     photos = Photo.objects.filter(visibility=PUBLIC).order_by('-created_at') # query :for last photos created
@@ -39,20 +42,29 @@ def detail(request, pk):
     else:
         return HttpResponseNotFound('No existe la foto') # 404 not found
 
+@login_required()
 def create(request):
     '''
     Formulario para creacion de de foto (petición POST)
     param request: HttpRequest
     return: HttpResponse
     '''
+
+    success_message = ''
     if request.method == 'GET':
         form = PhotoForm()
     else:
         form = PhotoForm(request.POST)
         if form.is_valid():
             new_photo = form.save() # Guarda el objeto y lo devuelve
+            form = PhotoForm() # Al no pasar valores aparece el formulario vacio
+            success_message = 'Guardado con éxito'
+            success_message += '<a href="{0}">'.format(reverse('photo_detail',args=[new_photo.pk]))
+            success_message += 'ver foto'
+            success_message += '</a>'
 
     context = {
-        'form': form 
+        'form': form ,
+        'success_message': success_message
     }
     return render(request, 'photos/new_photo.html', context)
