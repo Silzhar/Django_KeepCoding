@@ -5,10 +5,15 @@
 {% block section %}
 
     <h1>Crear una foto</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div>
-        <button>Crear foto</button>
-    </div>
+
+    {% if success_message %} <span style="color:green">{{ success_message|safe }}</span> {% endif %}
+
+    <from method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button>Crear foto</button>
+        </div>
+    </from>
 
 {% endblock %}
