@@ -5,13 +5,16 @@ from photos.models import Photo, PUBLIC
 from photos.forms import PhotoForm
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.generic import View
 
-def home(request):
-    photos = Photo.objects.filter(visibility=PUBLIC).order_by('-created_at') # query :for last photos created
-    context = {
-        'photos_list': photos[:4] # only 4 photos in home page
-    }
-    return render(request, 'photos/home.html', context)
+
+class HomeView(View): # vista basada en clase
+    def get(self, request):
+        photos = Photo.objects.filter(visibility=PUBLIC).order_by('-created_at') # query :for last photos created
+        context = {
+            'photos_list': photos[:4] # only 4 photos in home page
+        }
+        return render(request, 'photos/home.html', context)
 
 def detail(request, pk):
     '''
@@ -31,7 +34,7 @@ def detail(request, pk):
         photo = None
     '''
 
-    possible_photos = Photo.objects.filter(pk=pk) # pk = primary key
+    possible_photos = Photo.objects.filter(pk=pk).select_related('owner') # pk = primary key
     photo = possible_photos[0] if len(possible_photos) > 0 else None
     if photo is not None:
         # cargar la plantilla de detalle
