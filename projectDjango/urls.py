@@ -16,18 +16,18 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from photos.views import HomeView
-from users.views import LoginView
+from photos.views import HomeView, DetailView
+from users.views import LoginView, LogoutView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # Photos URLs
     url(r'^$', HomeView.as_view(), name='photos_home'), 
-    url(r'^photos/(?P<pk>[0-9]+)$', 'photos.views.detail', name='photo_detail'), # (?P<pk>[0-9]+) = cualquier numero de 0 a 9 repetido una o mas veces
+    url(r'^photos/(?P<pk>[0-9]+)$', DetailView.as_view(), name='photo_detail'), # (?P<pk>[0-9]+) = cualquier numero de 0 a 9 repetido una o mas veces
     url(r'^photos/new$', 'photos.views.create', name='create_photo'),
 
     # Users URLs
     url(r'^login$', LoginView.as_view(), name='users_login'),
-    url(r'^logout$', 'users.views.logout', name='users_logout')
+    url(r'^logout$', LogoutView.as_view(), name='users_logout')
 ]
