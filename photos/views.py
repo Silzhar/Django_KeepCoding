@@ -16,34 +16,35 @@ class HomeView(View): # vista basada en clase
         }
         return render(request, 'photos/home.html', context)
 
-def detail(request, pk):
-    '''
-    Carga la página de detalle de una foto
-    param request: HttpRequest
-    param pk: id de la foto
-    return: HttpResponse
-    '''
-    '''
-    # sintaxtis de recuperación de un objeto
-    # lo mismo que abajo pero controlando con Try / except
-    try:  
-        photo = Photo.objects.get(pk=pk)
-    except Photo.DoesNotExist:
-        photo = None
-    except Photo.MultipleObjects:
-        photo = None
-    '''
+class DetailView(View):
+    def get(self, request, pk):
+        '''
+        Carga la página de detalle de una foto
+        param request: HttpRequest
+        param pk: id de la foto
+        return: HttpResponse
+        '''
+        '''
+        # sintaxtis de recuperación de un objeto
+        # lo mismo que abajo pero controlando con Try / except
+        try:  
+            photo = Photo.objects.get(pk=pk)
+        except Photo.DoesNotExist:
+            photo = None
+        except Photo.MultipleObjects:
+            photo = None
+        '''
 
-    possible_photos = Photo.objects.filter(pk=pk).select_related('owner') # pk = primary key
-    photo = possible_photos[0] if len(possible_photos) > 0 else None
-    if photo is not None:
-        # cargar la plantilla de detalle
-        context = {
-            'photo': photo
-        }
-        return render(request, 'photos/detail.html', context)
-    else:
-        return HttpResponseNotFound('No existe la foto') # 404 not found
+        possible_photos = Photo.objects.filter(pk=pk).select_related('owner') # pk = primary key
+        photo = possible_photos[0] if len(possible_photos) > 0 else None
+        if photo is not None:
+            # cargar la plantilla de detalle
+            context = {
+                'photo': photo
+            }
+            return render(request, 'photos/detail.html', context)
+        else:
+            return HttpResponseNotFound('No existe la foto') # 404 not found
 
 @login_required()
 def create(request):
